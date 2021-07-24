@@ -1,0 +1,29 @@
+-- FUNCTION: public.update_row(character varying, character varying, integer)
+
+-- DROP FUNCTION public.update_row(character varying, character varying, integer);
+
+CREATE OR REPLACE FUNCTION public.update_row(
+	emailid character varying,
+	new_activation_key character varying,
+	new_activation_status integer)
+    RETURNS TABLE(emailverification_id integer, first_name character varying, last_name character varying, email_id character varying, activation_key character varying, added_date timestamp with time zone, added_by character varying, last_modified_date timestamp with time zone, last_modified_by character varying, activation_status_id integer)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+BEGIN
+RETURN QUERY
+SELECT * FROM public.registration_emailverification a
+where a.email_id = emailid;
+UPDATE public.registration_emailverification a
+SET activation_key = new_activation_key , activation_status_id = new_activation_status
+WHERE a.email_id = emailid;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public.update_row(character varying, character varying, integer)
+    OWNER TO postgres;

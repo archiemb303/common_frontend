@@ -1,0 +1,36 @@
+-- FUNCTION: public.validate_apitoken(integer, character varying, integer)
+
+-- DROP FUNCTION public.validate_apitoken(integer, character varying, integer);
+
+CREATE OR REPLACE FUNCTION public.validate_apitoken(
+	token_vendor_id integer,
+	token_st character varying,
+	token_type integer)
+    RETURNS TABLE(status text, message_out text)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+-- select a.token_vendor_id_id, a.token_string, a.token_type_id
+	BEGIN
+
+IF EXISTS (SELECT * from apiauthentication_apitokens a
+	where a.token_vendor_id_id=token_vendor_id AND a.token_string=token_st AND
+	a.token_type_id=token_type AND a.token_status_id_id=1) THEN
+		RETURN QUERY SELECT 'Success' as Status, 'API call is authentic' as Message;
+	ELSE
+		RETURN QUERY SELECT 'Failure' as Status,
+		'Some internal issue. API is not allowed to proceed' as Message;
+	END IF;
+ 	EXCEPTION
+	when others then
+ 	RETURN QUERY SELECT 'Failure' as Status,
+ 	 'API call is not authentic' as message;
+END;
+$BODY$;
+
+ALTER FUNCTION public.validate_apitoken(integer, character varying, integer)
+    OWNER TO postgres;

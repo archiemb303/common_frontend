@@ -1,0 +1,21 @@
+
+CREATE OR REPLACE FUNCTION public.sp_fetch_profile_from_uuid15(
+    profile_ref refcursor,
+                uuidid character varying)
+RETURNS refcursor
+LANGUAGE 'plpgsql'
+
+COST 100
+VOLATILE
+
+AS $BODY$
+--  DECLARE uid character varying ;
+DECLARE pid integer;
+BEGIN
+pid:=(select a.profile_id_id from registration_uuidtoprofileidmap a where uuid_id_id=uuidid);
+-- pid:= (select uuid_id_id from public.registration_uuidtoprofileidmap b
+--  where b.uuid_id_id =uid);
+OPEN profile_ref FOR select * from registration_userprofile where profile_id=pid;
+RETURN profile_ref;
+END;
+$BODY$;

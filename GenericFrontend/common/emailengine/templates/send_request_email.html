@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h2>Hi {{user_name}}</h2>
+    <p>{{requester_name}} has
+        {% block condition %}
+        {% if notified_email_flag == 1 %}
+        sent you friend request. To Sign-up, Please verify your email by on clicking on the "Verify Me" below:</p>
+    {% elif notified_email_flag == 2 %}
+    sent you partner request. To Sign-up, Please verify your email by on clicking on the "Verify Me" below:</p>
+    {% elif notified_email_flag == 3 %}
+    accept you friend request. To Sign-up, Please verify your email by on clicking on the "Verify Me" below:</p>
+    {% elif notified_email_flag == 4 %}
+    accept you partner request. To Sign-up, Please verify your email by on clicking on the "Verify Me" below:</p>
+    {% else %}
+    Thank you for registering with genericfrontend. Please verify your email by on the "Verify Me" below: </p>
+    {% endif %}
+    {% endblock condition %}
+
+    <br>
+
+    <!-- <a style="..." href="http://localhost:9999/pre/login/(pR:register)?ak={{activation_key}}&fn={{first_name}}&ln={{last_name}}&email={{email_id}}"><br>Verify Me</a><br> -->
+    <a style="..."
+        href="https://www.ghdbfy.com/pre/login/(pR:register)?ak={{activation_key}}&fn={{first_name}}&ln={{last_name}}&email={{email_id}}"><br>Verify
+        Me</a><br>
+    <!-- <a style="..." href="http://localhost:9999/pre/login/(pR:register)?ak={{activation_key}}&fn={{first_name}}&ln={{last_name}}&email={{email_id}}"><br>Verify Me</a><br> -->
+
+    <p>If you registered through our mobile app then please use {{mobile_otp}} as your the One Time Password in the
+        mobile app to verify your email address.</p>
+    <p>Wishing you in your journey to make your life exemplary!<br>
+        Thank you!<br>
+        Support Center<br>
+        genericfrontend.com</p>
+</body>
+
+</html>

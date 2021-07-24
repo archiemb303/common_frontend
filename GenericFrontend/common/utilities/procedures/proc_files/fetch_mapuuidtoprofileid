@@ -1,0 +1,24 @@
+-- FUNCTION: public.fetch_mapuuidtoprofileid(character varying)
+
+-- DROP FUNCTION public.fetch_mapuuidtoprofileid(character varying);
+
+CREATE OR REPLACE FUNCTION public.fetch_mapuuidtoprofileid(
+	uuid_id character varying)
+    RETURNS TABLE(map_id integer, added_date timestamp with time zone, added_by character varying, last_modified_date timestamp with time zone, last_modified_by character varying, profile_id_id integer, status_id integer, uuid_id_id character varying)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+
+BEGIN
+RETURN QUERY
+SELECT * FROM public.registration_uuidtoprofileidmap a
+where a.uuid_id_id = uuid_id;
+END;
+$BODY$;
+
+ALTER FUNCTION public.fetch_mapuuidtoprofileid(character varying)
+    OWNER TO postgres;

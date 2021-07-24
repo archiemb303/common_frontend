@@ -1,0 +1,24 @@
+.\apidocumentation_getallstatesdetailsbycountry.py:2:80: E501 line too long (89 > 79 characters)
+.\apidocumentation_getallstatesdetailsbycountry.py:52:80: E501 line too long (95 > 79 characters)
+.\apidocumentation_getallstatesdetailsbycountry.py:54:4: W292 no newline at end of file
+.\views_getallstatesdetailsbycountry.py:4:80: E501 line too long (88 > 79 characters)
+.\views_getallstatesdetailsbycountry.py:15:80: E501 line too long (84 > 79 characters)
+.\views_getallstatesdetailsbycountry.py:27:80: E501 line too long (116 > 79 characters)
+.\views_getallstatesdetailsbycountry.py:29:80: E501 line too long (121 > 79 characters)
+.\views_getallstatesdetailsbycountry.py:33:80: E501 line too long (108 > 79 characters)
+************* Module apidocumentation_getallstatesdetailsbycountry
+getallstatesdetailsbycountry\apidocumentation_getallstatesdetailsbycountry.py:54:0: C0304: Final newline missing (missing-final-newline)
+************* Module validations_getallstatesdetailsbycountry
+getallstatesdetailsbycountry\validations_getallstatesdetailsbycountry.py:2:0: C0304: Final newline missing (missing-final-newline)
+************* Module views_getallstatesdetailsbycountry
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:27:0: C0301: Line too long (116/100) (line-too-long)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:29:0: C0301: Line too long (121/100) (line-too-long)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:33:0: C0301: Line too long (108/100) (line-too-long)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:4:0: E0401: Unable to import 'apiauthentication.api.authenticateapi.views_authenticateapi' (import-error)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:5:0: E0401: Unable to import 'common.location.models' (import-error)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:6:0: E0401: Unable to import 'common.location.serializers' (import-error)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:31:15: W0703: Catching too general exception Exception (broad-except)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:23:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent
+-return-statements)
+getallstatesdetailsbycountry\views_getallstatesdetailsbycountry.py:23:4: R0201: Method could be a function (no-self-use)
+

@@ -1,0 +1,27 @@
+-- FUNCTION: public.fetch_profile_emailverificationotp(refcursor, character varying)
+
+-- DROP FUNCTION public.fetch_profile_emailverificationotp(refcursor, character varying);
+
+CREATE OR REPLACE FUNCTION public.fetch_profile_emailverificationotp(
+	profile_ref refcursor,
+	emailid character varying)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$
+ DECLARE uid character varying ;
+DECLARE pid integer;
+BEGIN
+uid:=(select a.uuid_id from registration_emailverificationotp a where email_id =emailid);
+pid:= (select profile_id_id from public.registration_uuidtoprofileidmap b
+ where b.uuid_id_id =uid);
+OPEN profile_ref FOR select * from registration_userprofile where profile_id=pid;
+RETURN profile_ref;
+END;
+ $BODY$;
+
+ALTER FUNCTION public.fetch_profile_emailverificationotp(refcursor, character varying)
+    OWNER TO postgres;

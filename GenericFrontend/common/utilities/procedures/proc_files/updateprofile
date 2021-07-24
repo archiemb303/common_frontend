@@ -1,0 +1,44 @@
+-- FUNCTION: public.updateprofile(integer, character varying, character varying, character varying, integer)
+--select * from public.updateprofile(1,'test','boto','male',1)
+-- DROP FUNCTION public.updateprofile(integer, character varying, character varying, character varying, integer);
+
+CREATE OR REPLACE FUNCTION public.updateprofile(
+	pid integer,
+	fname character varying,
+	lname character varying,
+	gendertype character varying,
+	city_id integer)
+    RETURNS TABLE(status text, message text) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$
+#variable_conflict use_column
+DECLARE credential_id integer := 0;
+DECLARE email_verf_id integer := 0;
+
+BEGIN
+
+email_verf_id:= (select emailverification_id  FROM public.registration_emailverification
+WHERE uuid_id=(SELECT uuid_id_id FROM public.registration_uuidtoprofileidmap WHERE profile_id_id=1));
+
+credential_id:=(SELECT cred_id FROM public.registration_usercredentials
+WHERE account_verification_id_id=1);
+UPDATE public.registration_emailverification SET first_name=fname,last_name=lname
+WHERE emailverification_id=email_verf_id ;
+UPDATE public.registration_userprofile SET first_name=fname,last_name=lname,
+sex=gendertype,city_id_id=city_id WHERE profile_id=pid  AND profile_status_id=1;
+RETURN QUERY
+SELECT 'Success' AS status,'Your profile has been update successfully' as message 
+FROM public.registration_userprofile where profile_id=pid AND profile_status_id=1;
+EXCEPTION
+	WHEN others then
+	RETURN QUERY
+	SELECT 'Failure' AS status,'Something went wrong while updatinng profile' 
+	FROM public.registration_userprofile WHERE profile_id=pid  AND profile_status_id=1;
+END;
+$BODY$;
+
+

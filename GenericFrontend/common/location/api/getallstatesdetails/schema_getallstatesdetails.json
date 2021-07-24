@@ -1,0 +1,94 @@
+{
+    "properties": {
+        "url": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "url"
+    ],
+    "properties": {
+        "api_details": {
+            "type": "object",
+            "properties": {
+                "APIDetails": {
+                    "type": "object",
+                    "properties": {
+                        "token_type": {
+                            "type": "integer"
+                        },
+                        "token_vendor_id": {
+                            "type": "integer"
+                        },
+                        "token_string": {
+                            "type": "string"
+                        },
+                        "dev_key": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "token_type",
+                        "token_vendor_id",
+                        "token_string",
+                        "dev_key"
+                    ]
+                }
+            }
+        },
+        "apiparams_payload": {
+            "SessionDetails": {
+                "properties": {
+                    "profile_id": {
+                        "type": "integer"
+                    },
+                    "session_id": {
+                        "type": "integer"
+                    },
+                    "session_key": {
+                        "type": "string"
+                    },
+                    "required": [
+                        "profile_id",
+                        "session_id",
+                        "session_key"
+                    ]
+                }
+            },
+            "APIParams": {
+                "properties": {
+                    "old_password": {
+                        "type": "string",
+                        "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"])[A-Za-z\\d!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"]{8,}$"
+                    },
+                    "new_password ": {
+                        "type": "string",
+                        "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"])[A-Za-z\\d!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"]{8,}$"
+                    },
+                    "confirm_new_password": {
+                        "type": "string",
+                        "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"])[A-Za-z\\d!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\\\"]{8,}$"
+                    },
+                    "email_id ": {
+                        "type": "string",
+                        "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "device": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "old_password",
+                    "new_password",
+                    "confirm_new_password",
+                    "email_id",
+                    "source",
+                    "device"
+                ]
+            }
+        }
+    }
+}

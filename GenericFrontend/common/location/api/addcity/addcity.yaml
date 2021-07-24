@@ -1,0 +1,28 @@
+##########################
+# Testbed Details
+#
+# API Test Parameters
+#
+#
+url: 'http://127.0.0.1:8000/add_city/'
+
+
+api_details:
+    APIDetails:
+      token_type: 1
+      token_vendor_id: 1
+      token_string: 'sdxfcgvbhjnmklasdfghjk'
+      dev_key: 'sjdkljagagerukjdgjncjdsnjkfhkjasdghreuiuie@#$%$dgd#$@d234'
+
+apiparams_payload:
+#    SessionDetails:
+#      profile_id: 1
+#      session_id: 1
+#      session_key: 'sdxfcgvbhjnmklasdfghjk'
+
+    APIParams:
+      city_name: "Tumkur"
+      added_by: "vandana"
+      last_modified_by: "vandana"
+      state_id: 1
+

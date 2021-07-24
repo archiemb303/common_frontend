@@ -1,0 +1,24 @@
+-- FUNCTION: public.fetch_source(refcursor, integer)
+
+-- DROP FUNCTION public.fetch_source(refcursor, integer);
+
+CREATE OR REPLACE FUNCTION public.fetch_source(
+	source_ref refcursor,
+	sourceid integer)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$
+
+BEGIN
+
+OPEN source_ref FOR select * from registration_sources where source_id=sourceid;
+RETURN source_ref;
+END;
+ $BODY$;
+
+ALTER FUNCTION public.fetch_source(refcursor, integer)
+    OWNER TO postgres;

@@ -1,0 +1,12 @@
+views_post_login_get_ticket_types.py:1:80: E501 line too long (98 > 79 characters)
+views_post_login_get_ticket_types.py:5:80: E501 line too long (95 > 79 characters)
+views_post_login_get_ticket_types.py:6:80: E501 line too long (92 > 79 characters)
+views_post_login_get_ticket_types.py:7:80: E501 line too long (97 > 79 characters)
+views_post_login_get_ticket_types.py:22:80: E501 line too long (84 > 79 characters)
+views_post_login_get_ticket_types.py:29:80: E501 line too long (81 > 79 characters)
+views_post_login_get_ticket_types.py:37:80: E501 line too long (91 > 79 characters)
+
+views_post_login_get_ticket_types.py:5:0: E0401: Unable to import 'common.apiauthentication.api.authenticateapi.views_authenticateapi' (import-error)
+views_post_login_get_ticket_types.py:6:0: E0401: Unable to import 'common.sessionmanagement.api.sessioncontrol.views_sessioncontrol' (import-error)
+views_post_login_get_ticket_types.py:7:0: E0401: Unable to import 'common.supportcentre.specificlib.views_lib' (import-error)
+views_post_login_get_ticket_types.py:11:0: C0103: Constant name "logger" doesn't conform to UPPER_CASE naming style (invalid-name)

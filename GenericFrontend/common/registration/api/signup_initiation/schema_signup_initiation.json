@@ -1,0 +1,65 @@
+{
+    "properties": {
+        "url": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "url"
+    ],
+    "properties": {
+        "api_details": {
+            "type": "object",
+            "properties": {
+                "APIDetails": {
+                    "type": "object",
+                    "properties": {
+                        "token_type": {
+                            "type": "integer"
+                        },
+                        "token_vendor_id": {
+                            "type": "integer"
+                        },
+                        "token_string": {
+                            "type": "string"
+                        },
+                        "dev_key": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "token_type",
+                        "token_vendor_id",
+                        "token_string",
+                        "dev_key"
+                    ]
+                }
+            }
+        },
+        "apiparams_payload": {
+            "type": "object",
+            "properties": {
+                "type": "object",
+                "APIParams": {
+                    "properties": {
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "email_id": {
+                            "type": "string",
+                            "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"
+                        }
+                    },
+                    "required": [
+                        "first_name",
+                        "last_name",
+                        "email_id"
+                    ]
+                }
+            }
+        }
+    }
+}

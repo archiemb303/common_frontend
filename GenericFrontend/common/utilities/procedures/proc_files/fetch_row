@@ -1,0 +1,24 @@
+-- FUNCTION: public.fetch_row(character varying)
+
+-- DROP FUNCTION public.fetch_row(character varying);
+
+CREATE OR REPLACE FUNCTION public.fetch_row(
+	emailvalue character varying)
+    RETURNS TABLE(emailverification_id integer, first_name character varying, last_name character varying, email_id character varying, added_date timestamp with time zone, added_by character varying, last_modified_date timestamp with time zone, last_modified_by character varying, history character varying, activation_status_id integer, uuid_id character varying, activation_key character varying)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+
+BEGIN
+RETURN QUERY
+SELECT * FROM public.registration_emailverification a
+where a.email_id = emailvalue;
+END;
+$BODY$;
+
+ALTER FUNCTION public.fetch_row(character varying)
+    OWNER TO postgres;

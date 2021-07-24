@@ -1,0 +1,23 @@
+-- FUNCTION: public.fetch_emailverificationotp(refcursor, character varying)
+
+-- DROP FUNCTION public.fetch_emailverificationotp(refcursor, character varying);
+
+CREATE OR REPLACE FUNCTION public.fetch_emailverificationotp(
+	email_ref refcursor,
+	emailid character varying)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$
+BEGIN
+
+OPEN email_ref FOR select * from registration_emailverificationotp where email_id=emailid;
+RETURN email_ref;
+END;
+ $BODY$;
+
+ALTER FUNCTION public.fetch_emailverificationotp(refcursor, character varying)
+    OWNER TO postgres;

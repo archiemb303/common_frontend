@@ -1,0 +1,32 @@
+-- FUNCTION: public.update_session(integer, integer, integer, integer, character varying)
+
+-- DROP FUNCTION public.update_session(integer, integer, integer, integer, character varying);
+
+CREATE OR REPLACE FUNCTION public.update_session(
+	sessionid integer,
+	profileid integer,
+	statusid integer,
+	vendorid integer,
+	sessionkey character varying)
+    RETURNS TABLE(session_id integer, profile_id integer, login_time timestamp with time zone, logout_time timestamp with time zone, session_key character varying, login_source character varying, login_type character varying, logout_type character varying, last_activity_time timestamp with time zone, added_by character varying, added_date timestamp with time zone, last_modified_by character varying, last_modified_date timestamp with time zone, status_id_id integer, vendor_id integer)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+BEGIN
+RETURN QUERY
+SELECT * FROM public.sessionmanagement_usersessions a
+where a.session_id = sessionid;
+UPDATE public.sessionmanagement_usersessions a
+SET status_id_id = statusid , profile_id_id = profileid, session_key= sessionkey, session_id = sessionid, vendor_id=vendorid
+
+WHERE a.session_id = sessionid;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public.update_session(integer, integer, integer, integer, character varying)
+    OWNER TO postgres;

@@ -1,0 +1,16 @@
+-- FUNCTION: public.fetch_country_code()
+
+-- DROP FUNCTION public.fetch_country_code();
+
+CREATE OR REPLACE FUNCTION public.fetch_country_code(
+	)
+    RETURNS integer
+    LANGUAGE 'sql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$select country_id from location_countries where country_id=1$BODY$;
+
+ALTER FUNCTION public.fetch_country_code()
+    OWNER TO postgres;

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+   .invoice-wrapper{
+    background-color: white;
+    place-content: center;
+    display: flex;
+    flex-direction: column;
+    padding:40px;
+    gap: 10px;
+    }
+    .header{
+        display: flex;
+        justify-content: space-between;
+    }
+        .owner-details > div{
+
+                font-size: small;
+
+        }
+        .invoice-details > div > span{
+
+                font-size: small;
+
+        }
+
+    .customer-details{
+        display: flex;
+        gap: 25px;}
+        .cd-header{
+            color: white;
+            background-color:  rgb(13, 13, 95);
+            padding-left:2px;
+        }
+        .billing{
+            flex: 0.5;
+
+        }
+        .address{
+            flex: 0.5;
+        }
+
+
+        th{
+            background-color: rgb(13, 13, 95);
+            color: white;
+        }
+        td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: small;
+        }
+        .amount-details > td {
+                border: 0px;
+        }
+
+    .footer{
+        display: flex;
+        }
+        .comments{
+            flex: 0.7;
+            }
+        .comments-header{
+            padding-left:2px;
+            background-color:  rgb(13, 13, 95);
+            color: white;
+          }
+
+    </style>
+</head>
+<body>
+    <div class="invoice-wrapper">
+    <div>Hi {{invoice_info.customer_first_name}},</div>
+    <div>Thank you for your purchase with genericfrontend. Please find below the invoice of your latest purchase.</div><br>
+    <div class="header">
+        <div class="owner-details">
+            <h2>Invoice</h2>
+            <div>WishWorks Solutions Pvt Ltd<br>
+                2nd Floor, #201 <br>
+                7th Cross, 28th Main,<br>
+                HSR Layout Sector 1<br>
+                Bangalore, Karnataka, India - 560102
+            </div>
+        </div>
+        <div class="invoice-details">
+            <div>Date
+                <span>{{invoice_info.invoice_date}}</span></div>
+            <div>Invoice Number
+                <span>{{invoice_info.invoice_num}}</span></div>
+        </div>
+    </div>
+    <div class="customer-details">
+        <div class="billing">
+            <div class="cd-header">BILLED TO</div>
+            <div>{{invoice_info.customer_details.customer_name}}</div>
+        </div>
+        <div class="address">
+            <div class="cd-header">SHIPPING ADDRESS</div>
+            <div>{{invoice_info.customer_details.customer_name}}</div>
+            <div>{{invoice_info.customer_details.customer_company}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.address_line_1}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.address_line_2}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.address_line_3}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.city}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.state}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.country}}</div>
+            <div>{{invoice_info.customer_details.customer_shipping_address.postal_code}}</div>
+        </div>
+    </div>
+    <div class="item-details">
+        <table style="width:100%">
+            <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+            </tr>
+            {% for item in invoice_info.items_details %}
+            <tr>
+                <td>{{item.item_description}}</td>
+                <td>{{item.quantity}}</td>
+                <td>({{item.currency}}) {{item.unit_price}}</td>
+                <td>({{item.currency}}) {{item.total_amount}}</td>
+            </tr>
+            {% endfor %}
+
+            <tr class="amount-details">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>({{invoice_info.invoice_details.currency}}) {{invoice_info.invoice_details.total_price_before_discounts}}</td>
+            </tr>
+            <tr class="amount-details">
+                <td></td>
+                <td></td>
+                <td>Discounts</td>
+                <td>({{invoice_info.invoice_details.currency}}) {{invoice_info.invoice_details.discount_value}}</td>
+            </tr>
+            <tr class="amount-details">
+                <td></td>
+                <td></td>
+                <td>Taxes</td>
+                <td>({{invoice_info.invoice_details.currency}}) {{invoice_info.invoice_details.total_taxes}}</td>
+            </tr>
+            <tr class="amount-details">
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>({{invoice_info.invoice_details.currency}}) {{invoice_info.invoice_details.price_after_tax}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <div class="comments">
+            <div class="comments-header">
+                Comments
+            </div>
+            <div>
+                1. Payments received are subject to terms and conditions listed at
+                https://akstagefe.com/termsConditions.<br>
+                2. For any queries or concerns, please log in to genericfrontend.com and raise a ticket. Please mention the
+                invoice number in your ticket subject/body.
+            </div>
+        </div>
+    </div><br>
+        <div>Regards,<br>
+            Support Team,
+        </div>
+</div>
+</body>
+</html>

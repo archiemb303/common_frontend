@@ -1,0 +1,33 @@
+-- FUNCTION: public.fetch_dp_details(refcursor, integer)
+--select *from public.fetch_dp_details('profile_ref',9)
+-- DROP FUNCTION public.fetch_dp_details(refcursor, integer);
+
+CREATE OR REPLACE FUNCTION public.fetch_dp_details(
+	profile_ref refcursor,
+	profile_id integer)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$
+#variable_conflict use_column
+DECLARE mediaid integer;
+DECLARE media_url character varying :='NONE';
+BEGIN
+IF EXISTS (SELECT dp_id FROM public.media_dp WHERE profile_id_id =profile_id AND status_id_id=1) THEN
+    mediaid:=(SELECT media_id_id FROM public.media_dp WHERE profile_id_id =profile_id AND status_id_id=1);
+	OPEN profile_ref FOR
+	SELECT media_id AS media_id,concat(media_static_path,file_content) AS media_image_url FROM public.media_medialibrary WHERE media_id =mediaid AND status_id=1 
+	AND file_owner_profile_id_id=profile_id;
+ELSE
+    OPEN profile_ref FOR
+	SELECT 'None' as media_id ,'None' AS dp ;
+	
+END IF;	
+RETURN profile_ref;
+END;
+$BODY$;
+
+ALTER FUNCTION public.fetch_dp_details(refcursor, integer)
+    OWNER TO genericfrontend_shared_db;

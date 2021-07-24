@@ -1,0 +1,128 @@
+Commands for django-extensions
+------------------------------
+pip install django-extensions
+include 'django_extensions' in installed_apps
+python manage.py graph_models -a > dotfile.dot :done
+file:///F:/raj_bak/Downloads/graphviz%20(1).svg
+https://medium.com/@yathomasi1/1-using-django-extensions-to-visualize-the-database-diagram-in-django-application-c5fa7e710e16
+
+Commands for Migrations:
+-----------------------
+python manage.py makemigrations <appname>
+python manage.py migrate <appname>
+python manage.py sqlmigrate registration <migrations-name>
+python manage.py sqlmigrate registration 0001_initial
+
+fetch profile id in session details
+
+#Command to search for pattern
+Windows:findstr /s /i <String> *.*
+eg:findstr /s /i pdb *.*
+Shell/gitbash/unix/mac: grep -ir "<string>" *
+E.g: grep -ir "pdb" *
+
+----
+doskey /History: command to check history
+python manage.py makemigrations friendrequest
+python manage.py sqlmigrate friendrequest 0002_auto_20200822_2001
+python manage.py migrate
+
+----
+Command to perform fake migrations
+python manage.py migrate --fake friendrequest
+python manage.py makemigrations friendrequest
+python manage.py migrate
+
+https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit
+ 235  git checkout 290818ab6d71ea8ea4ca417c6eeb52673638f304
+  236  git status
+  237  git checkout -b repair
+  238  git cherry-pick 8252e5952981d9c3b06e821f0feca094155aef1f
+  239  git status
+  240  git checkout master
+  241  git reset --hard 290818ab6d71ea8ea4ca417c6eeb52673638f304
+  242  git status
+  243  git log
+  244  git merge repair
+  245  git status
+  246  git push --hard origin master
+  247  git push origin master
+  248  git push -f origin master
+
+
+
+curl -O https://bootstrap.pypa.io/ez_setup.py
+python3 ez_setup.py
+# download and install pip
+curl -O https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py
+pip install psycopg2-binary
+python3.7 -m venv tutorial-env
+
+export PYTHONPATH="/Users/my_user/code"
+
+ln -s -f /usr/local/bin/python3.7 /usr/local/bin/python
+Django                  2.2.7
+channels                2.3.1
+channels-redis          2.4.1
+
+	7 sudo add-apt-repository ppa:deadsnakes/ppa
+    8  sudo apt update
+    9  sudo apt install python3.7
+   10  python
+   11  python3.7 --version
+
+   15  python3.7 -m pip install pip --upgrade
+   16  python3.7 -m pip install pip
+   17  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+   18  python3.7 get-pip.py
+   19  python3.7 -m pip install virtualenv
+   20  history
+    virtualenv -p python3.7 genericfrontendbe-project-env
+
+
+    #server { server_name www.genericfrontendbe.com; return 301 $scheme://genericfrontendbe.com$request_uri; }
+    server {
+        listen 80;
+        server_name akstagebe.com;
+        if ($http_x_forwarded_proto = "http") {
+             return 301 https://akstagebe.com$request_uri;
+          }
+
+        #return 301 https://akstagebe.com$request_uri;
+        location = /favicon.ico { access_log off; log_not_found off; }
+        location /static/ {
+            root /home/ubuntu/genericfrontendbe/genericfrontend;
+        }
+
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/home/ubuntu/genericfrontendbe/genericfrontend.sock;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+
+
+-------------------
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/genericfrontendbe/genericfrontend
+ExecStart=/home/ubuntu/genericfrontendbe-project-env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/genericfrontendbe/genericfrontend.sock genericfrontend.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+cat /etc/nginx/nginx.conf
+server_names_hash_bucket_size 128;
+
+
+
+

@@ -1,0 +1,24 @@
+-- FUNCTION: public.fetch_mobileverification_row(bigint)
+
+-- DROP FUNCTION public.fetch_mobileverification_row(bigint);
+
+CREATE OR REPLACE FUNCTION public.fetch_mobileverification_row(
+	phonenumber bigint)
+    RETURNS TABLE(mobileverification_id integer, phone_number bigint, otp integer, login_count integer, added_date timestamp with time zone, added_by character varying, last_modified_date timestamp with time zone, last_modified_by character varying, country_id_id integer, mobileverification_status_id integer, uuid_id_id character varying)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+
+BEGIN
+RETURN QUERY
+SELECT * FROM public.registration_mobileverification a
+where a.phone_number = phonenumber;
+END;
+$BODY$;
+
+ALTER FUNCTION public.fetch_mobileverification_row(bigint)
+    OWNER TO postgres;

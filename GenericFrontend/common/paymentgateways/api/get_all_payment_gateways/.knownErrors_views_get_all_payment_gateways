@@ -1,0 +1,1 @@
+views_get_all_payment_gateways.py:27:4: R0201: Method could be a function (no-self-use)

@@ -1,0 +1,27 @@
+-- FUNCTION: public.fetch_uuidforguid(refcursor, character varying)
+
+-- DROP FUNCTION public.fetch_uuidforguid(refcursor, character varying);
+
+CREATE OR REPLACE FUNCTION public.fetch_uuidforguid(
+	uuid_ref refcursor,
+	guid character varying)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$
+--  DECLARE uid character varying ;
+-- DECLARE pid integer;
+BEGIN
+-- pid:=(select a.profile_id from registration_uuidtoprofileidmap a where uuid_id_id=uuidid);
+-- pid:= (select uuid_id_id from public.registration_uuidtoprofileidmap b
+--  where b.uuid_id_id =uid);
+OPEN uuid_ref FOR select * from registration_uuid where source_uuid=guid;
+RETURN uuid_ref;
+END;
+ $BODY$;
+
+ALTER FUNCTION public.fetch_uuidforguid(refcursor, character varying)
+    OWNER TO postgres;

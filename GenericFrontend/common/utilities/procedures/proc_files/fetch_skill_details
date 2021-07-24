@@ -1,0 +1,30 @@
+-- FUNCTION: public.fetch_skill_details(integer)
+--select *from public.fetch_skill_details(1)
+-- DROP FUNCTION public.fetch_skill_details(integer);
+
+CREATE OR REPLACE FUNCTION public.fetch_skill_details(
+	profile_id integer)
+    RETURNS TABLE(skills integer[]) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$
+#variable_conflict use_column
+DECLARE skillids  integer[]      DEFAULT  ARRAY[]::integer[];
+BEGIN
+IF EXISTS (SELECT map_id FROM public.profileview_personalskills  WHERE profile_id_id =profile_id AND status_id=1) THEN
+   
+	RETURN QUERY
+	SELECT skill_id FROM public.profileview_personalskills WHERE profile_id_id =profile_id AND status_id=1 ;
+	
+ELSE
+    RETURN QUERY
+	SELECT  skillids as skill_id  ; 
+	
+END IF;	
+END;
+$BODY$;
+
+

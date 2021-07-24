@@ -1,0 +1,7 @@
+1. Working dir: django-admin startproject <projectname>
+  e.g: django-admin startproject genericfrontend
+2. Copy common folder, db.sqlite, requirements.txt.
+3. Also Copy and replace <projectname>.urls and <projectname.settings>.
+4.Copy dev_settings, prod_settings, shared_settings,staging_settings.
+5.Press ctrl+shift+r, replace <wws> with projectname>
+e.g:replace wws with genericfrontend.

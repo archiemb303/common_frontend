@@ -1,0 +1,24 @@
+-- FUNCTION: public.fetch_session_row(integer)
+
+-- DROP FUNCTION public.fetch_session_row(integer);
+
+CREATE OR REPLACE FUNCTION public.fetch_session_row(
+	sessionid integer)
+    RETURNS TABLE(session_id integer, profile_id integer, login_time timestamp with time zone, logout_time timestamp with time zone, session_key character varying, login_source character varying, login_type character varying, logout_type character varying, last_activity_time timestamp with time zone, added_by character varying, added_date timestamp with time zone, last_modified_by character varying, last_modified_date timestamp with time zone, status_id_id integer, vendor_id integer)
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+
+AS $BODY$
+
+BEGIN
+RETURN QUERY
+SELECT * FROM public.sessionmanagement_usersessions a
+where a.session_id = sessionid;
+END;
+$BODY$;
+
+ALTER FUNCTION public.fetch_session_row(integer)
+    OWNER TO postgres;

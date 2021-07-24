@@ -1,0 +1,23 @@
+.\apidocumentation_getcity.py:46:69: W291 trailing whitespace
+.\apidocumentation_getcity.py:51:80: E501 line too long (85 > 79 characters)
+.\apidocumentation_getcity.py:54:80: E501 line too long (86 > 79 characters)
+.\apidocumentation_getcity.py:56:4: W292 no newline at end of file
+.\validations_getcity.py:39:80: E501 line too long (85 > 79 characters)
+.\views_getcity.py:4:80: E501 line too long (88 > 79 characters)
+.\views_getcity.py:17:80: E501 line too long (84 > 79 characters)
+.\views_getcity.py:29:80: E501 line too long (103 > 79 characters)
+.\views_getcity.py:33:80: E501 line too long (86 > 79 characters)
+.\views_getcity.py:37:80: E501 line too long (108 > 79 characters)
+************* Module apidocumentation_getallstates
+getallstates\apidocumentation_getallstates.py:57:0: C0304: Final newline missing (missing-final-newline)
+************* Module validations_getallstates
+getallstates\validations_getallstates.py:2:0: C0304: Final newline missing (missing-final-newline)
+************* Module views_getallstates
+getallstates\views_getallstates.py:29:0: C0301: Line too long (121/100) (line-too-long)
+getallstates\views_getallstates.py:33:0: C0301: Line too long (108/100) (line-too-long)
+getallstates\views_getallstates.py:4:0: E0401: Unable to import 'apiauthentication.api.authenticateapi.views_authenticateapi' (import-error)
+getallstates\views_getallstates.py:31:15: W0703: Catching too general exception Exception (broad-except)
+getallstates\views_getallstates.py:27:46: E1101: Class 'States' has no 'objects' member (no-member)
+getallstates\views_getallstates.py:23:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+getallstates\views_getallstates.py:23:27: W0613: Unused argument 'request' (unused-argument)
+getallstates\views_getallstates.py:23:4: R0201: Method could be a function (no-self-use)

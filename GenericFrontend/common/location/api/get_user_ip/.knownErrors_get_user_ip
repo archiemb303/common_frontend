@@ -1,0 +1,6 @@
+views_get_user_ip.py:18:0: C0301: Line too long (113/100) (line-too-long)
+views_get_user_ip.py:22:0: C0301: Line too long (112/100) (line-too-long)
+views_get_user_ip.py:3:0: E0401: Unable to import 'common.apiauthentication.api.authenticateapi.views_authenticateapi' (import-error)
+views_get_user_ip.py:9:4: R0201: Method could be a function (no-self-use)
+views_get_user_ip.py:38:15: W0703: Catching too general exception Exception (broad-except)
+views_get_user_ip.py:17:4: R0201: Method could be a function (no-self-use)

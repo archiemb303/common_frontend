@@ -1,0 +1,22 @@
+\views_getallcitiesdetailsbystate.py:4:80: E501 line too long (95 > 79 characters)c
+.\views_getallcitiesdetailsbystate.py:17:80: E501 line too long (84 > 79 characters)
+.\views_getallcitiesdetailsbystate.py:29:80: E501 line too long (108 > 79 characters)
+.\views_getallcitiesdetailsbystate.py:33:80: E501 line too long (88 > 79 characters)
+.\views_getallcitiesdetailsbystate.py:37:80: E501 line too long (108 > 79 characters)
+************* Module apidocumentation_getallcitiesdetailsbystate
+getallcitiesdetailsbystate\apidocumentation_getallcitiesdetailsbystate.py:55:0: C0304:
+Final newline missing (missing-final-newline)
+************* Module views_getallcitiesdetailsbystate
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:28:0: C0301: Line too long (108/100) (line-too-long)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:36:0: C0301: Line too long (108/100) (line-too-long)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:4:0: E0401: Unable to import
+'common.apiauthentication.api.authenticateapi.views_authenticateapi' (import-error)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:5:0: E0401: Unable to import
+'common.location.models' (import-error)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:6:0: E0401: Unable to import
+'common.location.serializers' (import-error)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:34:15: W0703: Catching too general
+ exception Exception (broad-except)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:24:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-ret
+urn-statements)
+getallcitiesdetailsbystate\views_getallcitiesdetailsbystate.py:24:4: R0201: Method could be a function (no-self-use)

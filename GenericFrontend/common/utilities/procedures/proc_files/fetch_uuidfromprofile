@@ -1,0 +1,27 @@
+-- FUNCTION: public.fetch_uuidfromprofile(refcursor, integer)
+
+-- DROP FUNCTION public.fetch_uuidfromprofile(refcursor, integer);
+
+CREATE OR REPLACE FUNCTION public.fetch_uuidfromprofile(
+	uuid_ref refcursor,
+	profileid integer)
+    RETURNS refcursor
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE
+
+AS $BODY$
+--  DECLARE uid character varying ;
+-- DECLARE pid integer;
+BEGIN
+-- uid:=(select a.uuid_id from registration_mobileverfification a where phone_number=phonenumber);
+-- pid:= (select uuid_id_id from public.registration_uuidtoprofileidmap b
+--  where b.uuid_id_id =uid);
+OPEN uuid_ref FOR select * from registration_uuidtoprofileidmap where profile_id_id=profileid;
+RETURN uuid_ref;
+END;
+ $BODY$;
+
+ALTER FUNCTION public.fetch_uuidfromprofile(refcursor, integer)
+    OWNER TO postgres;
