@@ -5,9 +5,9 @@ import sys
 
 
 def main():
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'genericfrontend.dev_settings') # enble for local development
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'genericfrontend.dev_settings') # enble for local development
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'genericfrontend.staging_settings') # enble for staging deployment
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'genericfrontend.prod_settings') # enble for production deployment
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'genericfrontend.prod_settings') # enble for production deployment
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

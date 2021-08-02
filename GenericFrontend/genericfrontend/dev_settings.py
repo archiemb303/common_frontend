@@ -10,14 +10,20 @@ ALLOWED_HOSTS = []
 # Development DataBase setup
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'apiautomationdb',
-        'USER': 'apiautomationdb',
-        'PASSWORD': 'Cf9zFy61VTwzWAHWXL4o',
-        'HOST': 'apiautomation-dbi.co1bdjlevwzl.ap-south-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'apiautomationdb',
+#         'USER': 'apiautomationdb',
+#         'PASSWORD': 'Cf9zFy61VTwzWAHWXL4o',
+#         'HOST': 'apiautomation-dbi.co1bdjlevwzl.ap-south-1.rds.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # AWS S3 bucket,cloudfront setup
 

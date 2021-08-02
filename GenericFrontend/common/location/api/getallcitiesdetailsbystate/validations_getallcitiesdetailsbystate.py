@@ -1,3 +1,0 @@
-"""
-validate the input
-"""
