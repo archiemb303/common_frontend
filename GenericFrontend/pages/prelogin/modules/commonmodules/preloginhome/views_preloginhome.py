@@ -4,6 +4,8 @@ import re
 from rest_framework.views import APIView, Response
 from django.shortcuts import render, get_object_or_404, redirect
 
+from utilities.apicallers.apicallers import makebackendapicall_json
+
 # from .validations_preloginhome import validation_login
 
 # Get an instance of a logger
@@ -14,8 +16,11 @@ class PreLoginHomeAPI(APIView):
     """This covers the API for login of verified user with session details."""
     def get(self, request):
         # import pdb;pdb.set_trace()
-        payload = {"key1": "one", "key2": "two"}
-        return render(request, 'prelogin-home.html', payload)
+        backend_call_params = dict(zip(['api_type', 'api_name', 'request_type', 'api_params'],
+                                       ['prelogin', 'get_website_availability', 'post', dict()]))
+        backend_call_output = makebackendapicall_json(request, backend_call_params)
+        output_json = {"Payload": backend_call_output}
+        return render(request, 'prelogin-home.html', output_json)
 
     def post(self, request):
 
