@@ -16,7 +16,9 @@ def makebackendapicall_json(request, backend_call_params):
     }
 
     """
-    request_base_url = 'https://abkarobe.com/'
+    # request_base_url = 'https://abkarobe.com/'
+    # request_base_url = 'http://ec2-13-212-56-25.ap-southeast-1.compute.amazonaws.com/'
+    request_base_url = 'http://127.0.0.1:8001/'
 
     try:
         # Preparing API call url

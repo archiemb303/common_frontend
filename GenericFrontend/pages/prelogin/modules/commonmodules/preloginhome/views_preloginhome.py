@@ -19,6 +19,10 @@ class PreLoginHomeAPI(APIView):
         backend_call_params = dict(zip(['api_type', 'api_name', 'request_type', 'api_params'],
                                        ['prelogin', 'get_website_availability', 'post', dict()]))
         backend_call_output = makebackendapicall_json(request, backend_call_params)
+        # request.session["profile_id"] = backend_call_output['Payload']['SessionDetails']['Payload']['profile_id']
+        # request.session["session_id"] = backend_call_output['Payload']['SessionDetails']['Payload']['session_id']
+        # request.session["session_key"] = backend_call_output['Payload']['SessionDetails']['Payload']['session_key']
+
         output_json = {"Payload": backend_call_output}
         return render(request, 'prelogin-home.html', output_json)
 
