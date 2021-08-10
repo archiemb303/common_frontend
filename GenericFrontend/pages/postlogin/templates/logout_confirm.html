@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Are you sure you want to Logout?</h4>
+                </div>
+                <div class="card-body" style="text-align:right">
+
+                     <button id="logout" name="logout" class="btn btn-primary" onclick="logoutUser()" >Logout</button>
+                      <button onclick="goBack()" name="logout_cancel" class="btn btn-primary" onclick="goBack()" >Go Back</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+<script>
+function goBack() {
+  window.history.back()
+}
+
+function logoutUser() {
+  var dummy_var = 0;
+  console.log("32")
+  $.ajax({
+
+      type:"POST",
+      url: "{% url 'user/logout_confirm' %}",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(dummy_var),
+      success: function (data, status, jqXHR) {
+        console.log("40")
+        console.log(data)
+        console.log(status)
+        window.location.href = "/prelogin/"
+
+      },
+      error: function (jqXHR, status, err) {
+          console.log("48")
+          console.log(status)
+          console.log(err)
+          alert("Local error callback."+err);
+      }
+  });
+}
+</script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

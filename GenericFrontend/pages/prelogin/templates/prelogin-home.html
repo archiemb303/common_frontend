@@ -11,10 +11,10 @@
         <div class="col-md-12">
             <div class="card card-profile">
                 <div class="card-body">
-                    <h6 class="card-category text-gray">Error 404</h6>
-                    <h4 class="card-title">
-                        Page not found
-                    </h4>
+<!--                    <h6 class="card-category text-gray">Error 404</h6>-->
+<!--                    <h4 class="card-title">-->
+<!--                        Page not found-->
+<!--                    </h4>-->
                     <a href="/login/" class="btn btn-primary btn-round">Home</a>
                     <a href="/user/home/" class="btn btn-primary btn-round">Dashboard</a>
 
@@ -23,6 +23,318 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-6 offset-md-6" style="text-align: center">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">
+                            Login
+                        </h4>
+                    </div>
+                    <div class="card-body">
+
+                        {{is_logged_in}}
+                        {% if login_flag == 1 %}
+                        <h6 class="card-category">
+                              You are currently logged in.
+                        </h6>
+                        <button class="btn btn-primary inside-button mt-10" onclick="redirect()">Go to my Dashboard</button>
+                        {% else %}
+                        <h6 class="card-category">
+                              Login / Register
+                        </h6>
+                        <div id="web_email_id">
+                        <div class="xgroup showCountryCode">
+                          <div class="input-wrap">
+                               <input type="email" class="" id="email_id" name="email_id" placeholder="Email Id" value="">
+                              <div class="msg-error"></div>
+                            </div>
+                          </div>
+                         <button id="get_started" name="login" class="btn btn-primary" onclick="showOtp()" >Get OTP</button>
+
+<!--                        <button id="get_started" class="btn btn-primary inside-button mt-5" onclick="showOtp()"  style="width: 50%; font-size: 15px;background-color: #384E8D;">Get Started</button>-->
+                        </div>
+
+                        <div id="web_otp">
+                       <p id="otp_msg" class="mb-2"></p>
+                        <div class="xgroup showCountryCode">
+                            <div class="msgs"></div>
+
+                            <div class="input-wrap">
+                               <input type="email" class="" id="otp_email" name="otp_email" value="" maxlength="10" readonly>
+                            </div>
+                        </div>
+                        <div class="xgroup showCountryCode">
+                            <div class="input-wrap">
+                                <div class="countryCode-wrap">
+                                  <span>OTP</span>
+                                </div>
+                                <input type="tel" class="" id="otp" name="otp" placeholder="Enter OTP" value="" maxlength="6">
+                                <div class="otp-error"></div>
+                            </div>
+                            <div class="otp-number">
+                                <a onclick="changeNumber()"><u>Change Number</u></a>
+                            </div>
+                            <div class="otp-btn">
+                                <a onclick="showOtp()"><u>Resend OTP</u></a>
+
+<!--                                <button id="resend_btn" class="btn btn-primary"  onclick="showOtp()">-->
+<!--                                    <u>Resend OTP</u>-->
+<!--                                </button>-->
+                                <span id="timer"></span>
+                            </div>
+                        </div>
+                            <button id="login_btn" class="btn btn-primary" onclick="checkOtp()" >Login</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+<script>
+      function redirect(){
+        window.location.href = "/user/home/"
+      }
+</script>
+
+
+<script>
+  // For resend OTP starts here
+
+    var timerOn = true;
+    var t;
+    function timer(remaining) {
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+
+      m = m < 10 ? '0' + m : m;
+      s = s < 10 ? '0' + s : s;
+      $('#timer').show();
+      document.getElementById('timer').innerHTML ='In   ' + m + ':' + s;
+      remaining -= 1;
+
+      if(remaining >= 0 && timerOn) {
+       t = setTimeout(function() {
+            timer(remaining);
+        }, 1000);
+        return;
+      }else{
+        clearTimeout(t);
+        $('#timer').hide();
+        $("#resend_btn").attr("disabled", false);
+        $("#resend_btn").attr("style", "color: #fff; cursor: pointer");
+      }
+
+      if(!timerOn) {
+        // Do validate stuff here
+        return;
+      }
+
+      // Do timeout stuff here
+      //alert('Timeout for otp');
+    }
+  // For resend OTP ends here
+
+  // For send OTP ends here
+    function showOtp(){
+      var email_id = $('#email_id').val();
+
+       var email_validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if(email_id == "") {
+         console.log('empty email_id');
+        $(".msg-error").html('<p class="error">Email Id is required</p>');
+        $(".error").delay(500).show(10, function() {
+          $(this).delay(3000).hide(10, function() {
+          $(this).remove();
+        });
+      });
+        return false;
+      }else if (email_validation.test(email_id) == false) {
+            $(".msg-error").html('<p class="error">Please Enter valid email id</p>');
+            $(".error").delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          });
+        return false;
+      } else{
+         $("#get_started").html('<span></span>Please wait');
+         $("#get_started").find('span').addClass('spinner-grow spinner-grow-sm');
+          $('#web_otp').show();
+          $('#web_email_id').hide();
+          $('#otp').val("");
+          var msg = "Please enter the OTP sent to "+email_id;
+          $('.msgs').html(msg);
+          $("#otp_email").val(email_id);
+          $("#resend_btn").attr("disabled", true);
+          $("#resend_btn").removeAttr("style", "color: #fff; cursor: pointer");
+          timer(120);
+            $.ajax({
+                type:"POST",
+                url: "{% url 'generate_email_login_otp' %}",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(email_id),
+                success: function (data, status, jqXHR) {
+                  console.log(data)
+                  console.log(status)
+                },
+                error: function (jqXHR, status, err) {
+                    console.log(status)
+                    console.log(err)
+                    alert("Local error callback."+err);
+                }
+             });
+
+
+      }
+    }
+
+      function checkOtp(){
+
+      var otp = $('#otp').val();
+      if(otp == "") {
+         console.log('Hello');
+        $(".otp-error").html('<p class="error">Please Enter OTP</p>');
+        $(".error").delay(500).show(10, function() {
+          $(this).delay(3000).hide(10, function() {
+          $(this).remove();
+        });
+      });
+        return false;
+      } else{
+         //clearTimeout(t);
+         $("#login_btn").html('<span></span>Please wait');
+         $("#login_btn").find('span').addClass('spinner-grow spinner-grow-sm');
+        $.ajax({
+            type:"POST",
+            url: "{% url 'verify_email_login_otp' %}",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(otp),
+            success: function (data, status, jqXHR) {
+
+                console.log(data)
+                response = JSON.stringify(data);
+                console.log(response)
+                var resp_payload = JSON.parse(response).Payload.Payload
+
+                console.log(resp_payload.AvailabilityDetails.Message)
+                console.log(status)
+
+                var resp_status = resp_payload.Payload.Status
+
+              if (resp_status=="Success")
+                {
+                window.location.href = "../user/redirect/"
+                }
+            else
+            {
+            alert('Invalid OTP')
+            $('#login_btn').attr("disabled", false);
+             $('#login_btn').html(' <span></span>Login');
+            $('#login_btn').find('span').removeClass('spinner-grow spinner-grow-sm');
+            return false;
+            }
+
+            },
+            error: function (jqXHR, status, err) {
+                console.log(status)
+                console.log(err)
+                alert("Local error callback. 2");
+                 $('#login_btn').attr("disabled", false);
+                 $('#login_btn').html(' <span></span>Login');
+                $('#login_btn').find('span').removeClass('spinner-grow spinner-grow-sm');
+                return false;
+            }
+      });
+
+
+      }
+
+
+
+    }
+
+
+
+    function changeNumber(){
+          $('#web_otp').hide();
+          $('#web_email_id').show();
+          $('#email_id').val("");
+          $('#get_started').attr("disabled", false);
+          $('#get_started').html(' <span></span>Get Started');
+          $('#get_started').find('span').removeClass('spinner-grow spinner-grow-sm');
+          clearTimeout(t);
+          $('#timer').hide();
+
+    }
+
+</script>
+<!--##################################################################-->
+
+<!--<div class="row">-->
+<!--    <div class="col-md-5">-->
+<!--      <div class="card">-->
+<!--        <div class="card-header card-header-primary">-->
+<!--          <h4 class="card-title">-->
+<!--            Login-->
+<!--          </h4>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+
+<!--          <h6 class="card-category">-->
+<!--              {% if msg %}-->
+<!--                <span class="text-danger">{{ msg | safe }}</span>-->
+<!--              {% else %}-->
+<!--                  Add your credentials-->
+<!--              {% endif %}-->
+<!--          </h6>-->
+
+<!--          <br />-->
+
+<!--          <form role="form" method="post" action="">-->
+
+<!--            {% csrf_token %}-->
+
+<!--            <div class="row">-->
+<!--              <div class="col-md-12">-->
+<!--                <div class="form-group">-->
+<!--                  <label class="bmd-label-floating">Username</label>-->
+<!--                  {{ form.username }}-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <br />-->
+
+<!--            <div class="row">-->
+<!--              <div class="col-md-12">-->
+<!--                <div class="form-group">-->
+<!--                  <label class="bmd-label-floating">Password</label>-->
+<!--                  {{ form.password }}-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <br />-->
+
+<!--            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>-->
+
+<!--            &nbsp; &nbsp;-->
+<!--            <span class="pull-right">-->
+<!--              Don't have an account? <a href="" class="text-primary">Create</a>-->
+<!--            </span>-->
+
+<!--            <div class="clearfix"></div>-->
+
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
 
 {% endblock content %}

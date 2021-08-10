@@ -1,8 +1,10 @@
 """Module to verify API for login of verified user with session details."""
 import logging
 import re
+import requests
 from rest_framework.views import APIView, Response
 from django.shortcuts import render, get_object_or_404, redirect
+from genericfrontend.settings import *
 
 from utilities.apicallers.apicallers import makebackendapicall_json
 
@@ -15,16 +17,21 @@ logger = logging.getLogger("genericfrontend_1.0")
 class PreLoginHomeAPI(APIView):
     """This covers the API for login of verified user with session details."""
     def get(self, request):
-        # import pdb;pdb.set_trace()
+        output_json = dict(zip(['login_flag', "Payload"], [2, None]))
+        if 'login_flag' in request.session and request.session['login_flag'] == 1:
+            output_json['login_flag'] = 1
+        if 'redirection_url' in request.session:
+            output_json['redirection_url'] = request.session['redirection_url']
+
         backend_call_params = dict(zip(['api_type', 'api_name', 'request_type', 'api_params'],
                                        ['prelogin', 'get_website_availability', 'post', dict()]))
         backend_call_output = makebackendapicall_json(request, backend_call_params)
-        # request.session["profile_id"] = backend_call_output['Payload']['SessionDetails']['Payload']['profile_id']
-        # request.session["session_id"] = backend_call_output['Payload']['SessionDetails']['Payload']['session_id']
-        # request.session["session_key"] = backend_call_output['Payload']['SessionDetails']['Payload']['session_key']
 
-        output_json = {"Payload": backend_call_output}
-        return render(request, 'prelogin-home.html', output_json)
+        if backend_call_output['Payload']['AvailabilityDetails']['Payload']['live_flag'] == 1 and \
+                backend_call_output['Payload']['AvailabilityDetails']['Payload']['state_flag'] == 1:
+            output_json['Payload'] = backend_call_output
+            return render(request, 'prelogin-home.html', output_json)
+        return render(request, 'page-404.html', output_json)
 
     def post(self, request):
 

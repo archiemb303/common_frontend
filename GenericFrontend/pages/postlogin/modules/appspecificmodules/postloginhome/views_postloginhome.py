@@ -11,7 +11,13 @@ logger = logging.getLogger("genericfrontend_1.0")
 class PostLoginHomeAPI(APIView):
     """This covers the API for login of verified user with session details."""
     def get(self, request):
-        # import pdb;pdb.set_trace()
-        payload = {"key1": "one", "key2": "two"}
-        return render(request, 'index.html', payload)
+        # Handling case when user is not logged in but has directly hit the particular url
+        if 'login_flag' not in request.session or request.session['login_flag'] != 1:
+            request.session['redirection_url'] = "user/home/"
+            return redirect('/prelogin/')
+
+        output_json = dict(
+            zip(["Status", "Message", "active_item", "Payload"],
+                ["Success", "Backend API called successfully", "user/home", None]))
+        return render(request, 'index.html', output_json)
 
